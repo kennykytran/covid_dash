@@ -18,7 +18,9 @@ try to run this again
 and after a few warnings, it will run
 (9) yarn develop   (one more time, you should now see a gatsby leaflet map, 
                     with an astronaut centered on Washington, D.C.)
+                    
 https://www.freecodecamp.org/news/how-to-add-coronavirus-covid-19-case-statistics-to-your-map-dashboard-in-gatsby-and-react-leaflet/
+
 lsof -i tcp:8000    to find the pid of a process running on port 8000
 kill -9 PID_OF_PROCESS
 
