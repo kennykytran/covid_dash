@@ -45,6 +45,23 @@ const IndexPage = () => {
     }
   ];
 
+  const dashboardStatsToday = [
+    { primary:   { label: 'Total Cases Today',   value: commafy(stats?.todayCases) },
+    },
+    { primary:   { label: 'Total Deaths Today',  value: commafy(stats?.todayDeaths) },
+    }
+  ];
+
+  const dashboardStatsRecovered = [
+    { primary:   { label: 'Total Recovered',   value: commafy(stats?.recovered) },
+    },
+    { primary:   { label: 'Total Recovered per 1 Million',  value: commafy(stats?.recoveredPerOneMillion) },
+    },
+    { primary:   { label: 'Total Recovered Today',   value: commafy(stats?.todayRecovered) },
+    }
+  ];
+  
+
   async function mapEffect(map) { 
     // if (!hasCountries) { 
     //   console.log('@WILL: returning -- hasCountries is false');
@@ -183,11 +200,57 @@ const IndexPage = () => {
       </ul>        
     </div>             
   </div> 
+
+  {/* p tags just to add space inbetween because using <br> tags are weird */}
+  <p> </p>
+
+  <div className="tracker">
+      <div className="tracker-stats">
+        <ul>
+          { dashboardStatsToday.map(({ primary = {}}, i ) => {
+            return (
+              <li key={`Stat-${i}`} className="tracker-stat">
+              { primary.value && (
+                <p className="tracker-stat-primary">
+                  { primary.value }
+                  <strong> { primary.label } </strong>
+                </p>
+              ) }
+            </li>   
+          );  
+        }) }
+      </ul>        
+    </div>             
+  </div> 
+  
+  {/* p tags just to add space inbetween because using <br> tags are weird */}
+  <p> </p> 
+
+  <div className="tracker">
+      <div className="tracker-stats">
+        <ul>
+          { dashboardStatsRecovered.map(({ primary = {}}, i ) => {
+            return (
+              <li key={`Stat-${i}`} className="tracker-stat">
+              { primary.value && (
+                <p className="tracker-stat-primary">
+                  { primary.value }
+                  <strong> { primary.label } </strong>
+                </p>
+              ) }
+            </li>   
+          );  
+        }) }
+      </ul>        
+    </div>             
+  </div> 
   <div className="tracker-last-updated">
     <p>Last Updated: { stats ? friendlyDate( stats?.updated ) : '-' } </p>
   </div>
 
   <Container type="content" className="text-center home-start"> 
+
+
     <h3>It has  covid stats via markers on our map, and stas shown in a dashboard... lots of fun!</h3>
     </Container>
   </Layout>
