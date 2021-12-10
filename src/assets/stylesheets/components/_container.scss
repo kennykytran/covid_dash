@@ -7,3 +7,14 @@
   max-width: 60em;
   padding: 0 1em;
 }
+
+.row {
+  display: flex;
+  margin-left:-5px;
+  margin-right:-5px;
+}
+
+.column {
+  flex: 50%;
+  padding: 5px;
+}

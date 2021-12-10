@@ -200,10 +200,6 @@ const IndexPage = () => {
       </ul>        
     </div>             
   </div> 
-
-  {/* p tags just to add space inbetween because using <br> tags are weird */}
-  <p> </p>
-
   <div className="tracker">
       <div className="tracker-stats">
         <ul>
@@ -222,10 +218,6 @@ const IndexPage = () => {
       </ul>        
     </div>             
   </div> 
-  
-  {/* p tags just to add space inbetween because using <br> tags are weird */}
-  <p> </p> 
-
   <div className="tracker">
       <div className="tracker-stats">
         <ul>
@@ -248,7 +240,158 @@ const IndexPage = () => {
     <p>Last Updated: { stats ? friendlyDate( stats?.updated ) : '-' } </p>
   </div>
 
+
   <Container type="content" className="text-center home-start"> 
+  <div class="row">
+    <div class="column">
+    <h3>Country Recovery Stats</h3>
+  <table class="table" id="dataTable1">
+  <thead>
+    <th>Country</th>
+    <th>Total Recovered</th>
+    <th>Total Recovered per 1 Million</th>
+    <th>Total Recovered Today</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>China</td>
+      <td>{commafy(countries[42].recovered)}</td>
+      <td>{commafy(countries[42].recoveredPerOneMillion)}</td>
+      <td>{commafy(countries[42].todayRecovered)}</td>
+    </tr>
+    <tr>
+      <td>India</td>
+      <td>{commafy(countries[93].recovered)}</td>
+      <td>{commafy(countries[93].recoveredPerOneMillion)}</td>
+      <td>{commafy(countries[93].todayRecovered)}</td>
+    </tr>
+    <tr>
+      <td>United States</td>
+      <td>{commafy(countries[211].recovered)}</td>
+      <td>{commafy(countries[211].recoveredPerOneMillion)}</td>
+      <td>{commafy(countries[211].todayRecovered)}</td>
+    </tr>
+    <tr>
+      <td>Indonesia</td>
+      <td>{commafy(countries[94].recovered)}</td>
+      <td>{commafy(countries[94].recoveredPerOneMillion)}</td>
+      <td>{commafy(countries[94].todayRecovered)}</td>
+    </tr>
+    <tr>
+      <td>Pakistan</td>
+      <td>{commafy(countries[151].recovered)}</td>
+      <td>{commafy(countries[151].recoveredPerOneMillion)}</td>
+      <td>{commafy(countries[151].todayRecovered)}</td>
+    </tr>
+    <tr>
+      <td>Brazil</td>
+      <td>{commafy(countries[26].recovered)}</td>
+      <td>{commafy(countries[26].recoveredPerOneMillion)}</td>
+      <td>{commafy(countries[26].todayRecovered)}</td>
+    </tr>
+    <tr>
+      <td>Nigeria</td>
+      <td>{commafy(countries[148].recovered)}</td>
+      <td>{commafy(countries[148].recoveredPerOneMillion)}</td>
+      <td>{commafy(countries[148].todayRecovered)}</td>
+    </tr>
+    <tr>
+      <td>Bangladesh</td>
+      <td>{commafy(countries[15].recovered)}</td>
+      <td>{commafy(countries[15].recoveredPerOneMillion)}</td>
+      <td>{commafy(countries[15].todayRecovered)}</td>
+    </tr>
+    <tr>
+      <td>Russia</td>
+      <td>{commafy(countries[163].recovered)}</td>
+      <td>{commafy(countries[163].recoveredPerOneMillion)}</td>
+      <td>{commafy(countries[163].todayRecovered)}</td>
+    </tr>
+    <tr>
+      <td>Mexico</td>
+      <td>{commafy(countries[131].recovered)}</td>
+      <td>{commafy(countries[131].recoveredPerOneMillion)}</td>
+      <td>{commafy(countries[131].todayRecovered)}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="column">
+<h3>Country Cases Stats</h3>
+  <table class="table" id="dataTable2">
+  <thead>
+    <th>Country</th>
+    <th>Total Cases</th>
+    <th>Total Cases per 1 Million</th>
+    <th>Total Cases Today</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>China</td>
+      <td>{commafy(countries[42].cases)}</td>
+      <td>{commafy(countries[42].casesPerOneMillion)}</td>
+      <td>{commafy(countries[42].todayCases)}</td>
+    </tr>
+    <tr>
+      <td>India</td>
+      <td>{commafy(countries[93].cases)}</td>
+      <td>{commafy(countries[93].casesPerOneMillion)}</td>
+      <td>{commafy(countries[93].todayCases)}</td>
+    </tr>
+    <tr>
+      <td>United States</td>
+      <td>{commafy(countries[211].cases)}</td>
+      <td>{commafy(countries[211].casesPerOneMillion)}</td>
+      <td>{commafy(countries[211].todayCases)}</td>
+    </tr>
+    <tr>
+      <td>Indonesia</td>
+      <td>{commafy(countries[94].cases)}</td>
+      <td>{commafy(countries[94].casesPerOneMillion)}</td>
+      <td>{commafy(countries[94].todayCases)}</td>
+    </tr>
+    <tr>
+      <td>Pakistan</td>
+      <td>{commafy(countries[151].cases)}</td>
+      <td>{commafy(countries[151].casesPerOneMillion)}</td>
+      <td>{commafy(countries[151].todayCases)}</td>
+    </tr>
+    <tr>
+      <td>Brazil</td>
+      <td>{commafy(countries[26].cases)}</td>
+      <td>{commafy(countries[26].casesPerOneMillion)}</td>
+      <td>{commafy(countries[26].todayCases)}</td>
+    </tr>
+    <tr>
+      <td>Nigeria</td>
+      <td>{commafy(countries[148].cases)}</td>
+      <td>{commafy(countries[148].casesPerOneMillion)}</td>
+      <td>{commafy(countries[148].todayCases)}</td>
+    </tr>
+    <tr>
+      <td>Bangladesh</td>
+      <td>{commafy(countries[15].cases)}</td>
+      <td>{commafy(countries[15].casesPerOneMillion)}</td>
+      <td>{commafy(countries[15].todayCases)}</td>
+    </tr>
+    <tr>
+      <td>Russia</td>
+      <td>{commafy(countries[163].cases)}</td>
+      <td>{commafy(countries[163].casesPerOneMillion)}</td>
+      <td>{commafy(countries[163].todayCases)}</td>
+    </tr>
+    <tr>
+      <td>Mexico</td>
+      <td>{commafy(countries[131].cases)}</td>
+      <td>{commafy(countries[131].casesPerOneMillion)}</td>
+      <td>{commafy(countries[131].todayCases)}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
 
 
     <h3>It has  covid stats via markers on our map, and stas shown in a dashboard... lots of fun!</h3>
