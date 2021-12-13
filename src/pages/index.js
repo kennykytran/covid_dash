@@ -13,8 +13,8 @@ import Map from "components/Map";
 import Snippet from "components/Snippet";
 
 const LOCATION = {
-  lat: 34.0522,
-  lng: -118.2437,
+  lat: 0,
+  lng: 0,
 };
 const CENTER = [LOCATION.lat, LOCATION.lng];
 const DEFAULT_ZOOM = 2;
