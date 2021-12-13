@@ -1,6 +1,8 @@
 .container {
   width: 100%;
   margin: 0 auto;
+  background-color: rgb(32, 33, 37);
+  color: white;
 }
 
 .container-content {
@@ -17,4 +19,8 @@
 .column {
   flex: 50%;
   padding: 5px;
+}
+
+.column table{
+  border: 1px solid white;
 }
