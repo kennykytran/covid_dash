@@ -25,3 +25,4 @@ lsof -i tcp:8000    to find the pid of a process running on port 8000
 kill -9 PID_OF_PROCESS
 
 ```
+![alt text](https://cdn.discordapp.com/attachments/458701567366004737/921551394153058365/Website.gif.gif)
