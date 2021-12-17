@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import L from "leaflet";
 import { useMap } from "react-leaflet";
@@ -20,7 +20,10 @@ const CENTER = [LOCATION.lat, LOCATION.lng];
 const DEFAULT_ZOOM = 2;
 
 
+
 const IndexPage = () => {
+  const [visible, setVisible] = useState(true) // true is the initial state
+
   const { data: countries = [] } = useTracker({
     api: 'countries'
   });
@@ -35,13 +38,13 @@ const IndexPage = () => {
   
   const dashboardStats = [
     { primary:   { label: 'Total Cases',   value: commafy(stats?.cases) },
-      secondary: { label: 'Per 1 Million', value: commafy(stats?.casesPerOneMillion) }
+      secondary: { label: 'Total Cases Per 1 Million', value: commafy(stats?.casesPerOneMillion) }
     },
     { primary:   { label: 'Total Deaths',  value: commafy(stats?.deaths) },
-      secondary: { label: 'Per 1 Million', value: commafy(stats?.deathsPerOneMillion) }
+      secondary: { label: 'Total Deaths Per 1 Million', value: commafy(stats?.deathsPerOneMillion) }
     },
     { primary:   { label: 'Total Tests',   value: commafy(stats?.tests) },
-      secondary: { label: 'Per 1 Million', value: commafy(stats?.testsPerOneMillion) }
+      secondary: { label: 'Total Tests Per 1 Million', value: commafy(stats?.testsPerOneMillion) }
     }
   ];
 
@@ -177,6 +180,11 @@ const IndexPage = () => {
 
     <div className="tracker">
       <Map {...mapSettings} />
+
+      <div>
+      <button onClick={() => setVisible(!visible)}>Toggle World and Per Population</button>
+    
+      { visible &&
       <div className="tracker-stats">
         <ul>
           { dashboardStats.map(({ primary = {}, secondary = {} }, i ) => {
@@ -198,7 +206,34 @@ const IndexPage = () => {
           );  
         }) }
       </ul>        
-    </div>             
+    </div>
+    }
+    {!visible &&
+    <div className="tracker-stats">
+        <ul>
+          { dashboardStats.map(({ primary = {}, secondary = {} }, i ) => {
+            return (
+              <li key={`Stat-${i}`} className="tracker-stat">
+              { secondary.value && (
+                <p className="tracker-stat-primary">
+                  { secondary.value }
+                  <strong> { secondary.label } </strong>
+                </p>
+              ) }
+              { primary.value && (
+                <p className="tracker-stat-secondary">
+                  { primary.value } 
+                  <strong> { primary.label } </strong>
+                </p>
+              ) }
+            </li>   
+          );  
+        }) }
+      </ul>        
+    </div>   
+    }
+    </div>
+
   </div> 
   <div className="tracker">
       <div className="tracker-stats">
@@ -239,6 +274,8 @@ const IndexPage = () => {
   <div className="tracker-last-updated">
     <p>Last Updated: { stats ? friendlyDate( stats?.updated ) : '-' } </p>
   </div>
+
+
 
 
   <Container type="content" className="text-center home-start"> 
@@ -293,7 +330,6 @@ const IndexPage = () => {
 </div>
 </div>
 
-    <h3>It has  covid stats via markers on our map, and stas shown in a dashboard... lots of fun!</h3>
     </Container>
   </Layout>
   );

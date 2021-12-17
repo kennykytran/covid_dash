@@ -7,7 +7,20 @@
   box-sizing: border-box;
 }
 
+button{
+  padding: 10px;
+  color: white;
+  background-color: $gatsby-purple;
+  border: 5px solid $gatsby-purple;
+  width: 100%;
+}
+
+button:hover{
+  opacity: 0.8;
+}
+
 body {
+  width: 100%;
   font-family: $font-default;
   padding: 0;
   margin: 0;
