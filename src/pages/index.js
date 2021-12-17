@@ -286,19 +286,19 @@ const IndexPage = () => {
   <table class="table" id="dataTable2">
   <thead>
     <th>Stats </th>
-    <th>Total Cases</th>
+    <th>Total Recoveries</th>
   </thead>
   <tbody>
     <tr>
-      <td>Cases Worldwide</td>
+      <td>Recoveries Worldwide</td>
       <td>{commafy(stats?.recovered)}</td>
     </tr>
     <tr>
-      <td>Worldwide Cases Per One Million</td>
+      <td>Worldwide Recoveries Per One Million</td>
       <td>{commafy(stats?.recoveredPerOneMillion)}</td>
     </tr>
     <tr>
-      <td>Worldwide Cases Today</td>
+      <td>Worldwide Recoveries Today</td>
       <td>{commafy(stats?.todayRecovered)}</td>
     </tr>
   </tbody>
