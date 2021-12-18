@@ -2,7 +2,11 @@
   width: 100%;
   margin: 0 auto;
   background-color: rgb(32, 33, 37);
-  color: white;
+  color: white; 
+}
+
+.atBottom{
+  min-height: 1200px;
 }
 
 .container-content {
@@ -24,4 +28,10 @@
 .column table{
   margin: 0 auto;
   border: 1px solid white;
+}
+
+#my-chart.column {
+  height: 200px;
+  max-width: 300px;
+  margin: 0 auto;
 }

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { /*useEffect,*/ useState } from "react";
 import { Helmet } from "react-helmet";
 import L from "leaflet";
-import { useMap } from "react-leaflet";
+// import { useMap } from "react-leaflet";
 
 import axios from 'axios';          // part 1
 import { useTracker } from 'hooks';    // part 2
@@ -10,7 +10,11 @@ import { commafy, friendlyDate } from 'lib/util';    // part 2
 import Layout from "components/Layout";
 import Container from "components/Container";
 import Map from "components/Map";
-import Snippet from "components/Snippet";
+// import Snippet from "components/Snippet";
+
+// charts.css for charts
+import '../../node_modules/charts.css/dist/charts.css'
+
 
 const LOCATION = {
   lat: 0,
@@ -27,7 +31,7 @@ const IndexPage = () => {
   const { data: countries = [] } = useTracker({
     api: 'countries'
   });
-  const hasCountries = Array.isArray(countries) && countries.length > 0;
+  // const hasCountries = Array.isArray(countries) && countries.length > 0;
 
   console.log('@WILL -- warning: countries is null');
   if (countries) { 
@@ -38,13 +42,13 @@ const IndexPage = () => {
   
   const dashboardStats = [
     { primary:   { label: 'Total Cases',   value: commafy(stats?.cases) },
-      secondary: { label: 'Total Cases Per 1 Million', value: commafy(stats?.casesPerOneMillion) }
+      secondary: { label: 'Total Cases Per 1 Million', value: commafy(parseInt(stats?.casesPerOneMillion)) }
     },
     { primary:   { label: 'Total Deaths',  value: commafy(stats?.deaths) },
       secondary: { label: 'Total Deaths Per 1 Million', value: commafy(stats?.deathsPerOneMillion) }
     },
     { primary:   { label: 'Total Tests',   value: commafy(stats?.tests) },
-      secondary: { label: 'Total Tests Per 1 Million', value: commafy(stats?.testsPerOneMillion) }
+      secondary: { label: 'Total Tests Per 1 Million', value: commafy(parseInt(stats?.testsPerOneMillion)) }
     }
   ];
 
@@ -58,7 +62,7 @@ const IndexPage = () => {
   const dashboardStatsRecovered = [
     { primary:   { label: 'Total Recovered',   value: commafy(stats?.recovered) },
     },
-    { primary:   { label: 'Total Recovered per 1 Million',  value: commafy(stats?.recoveredPerOneMillion) },
+    { primary:   { label: 'Total Recovered per 1 Million',  value: commafy(parseInt(stats?.recoveredPerOneMillion)) },
     },
     { primary:   { label: 'Total Recovered Today',   value: commafy(stats?.todayRecovered) },
     }
@@ -85,7 +89,6 @@ const IndexPage = () => {
     // console.log(countries);
     const { data = [] } = response;   // part 1
     console.log(data);
-
     // const hasData = Array.isArray(countries) && countries.length > 0;  // part 2
     // if ( !hasData ) return;
 
@@ -172,6 +175,17 @@ const IndexPage = () => {
     whenCreated: mapEffect,
   };
 
+  // Global variables that for dynamic stats
+  // We need these to make our graphs dynamic
+  let criticalCases = stats?.critical;
+  let totalCases    = stats?.cases;
+  let totalRecovered    = stats?.recovered;
+  let totalDeaths    = stats?.deaths;
+  let todayDeaths    = stats?.todayDeaths;
+  let todayCases    = stats?.todayCases;
+  let todayRecovered = stats?.todayRecovered;
+  let totalActiveCases = stats?.active;
+  
   return (
     <Layout pageName="home">
       <Helmet>
@@ -278,7 +292,7 @@ const IndexPage = () => {
 
 
 
-  <Container type="content" className="text-center home-start"> 
+  <Container type="content" className="text-center home-start atBottom"> 
 
   <div class="row">
   <div class="column">
@@ -295,7 +309,7 @@ const IndexPage = () => {
     </tr>
     <tr>
       <td>Worldwide Recoveries Per One Million</td>
-      <td>{commafy(stats?.recoveredPerOneMillion)}</td>
+      <td>{commafy(parseInt(stats?.recoveredPerOneMillion))}</td>
     </tr>
     <tr>
       <td>Worldwide Recoveries Today</td>
@@ -303,7 +317,34 @@ const IndexPage = () => {
     </tr>
   </tbody>
 </table>
+
+{/* Today */}
+<p> {/* Newline */} </p> 
+
+
+<table class="charts-css column show-heading">
+<caption> Total Stats Today </caption>
+      <tbody>
+            <tr>
+              <td style={{ '--size': (todayDeaths/(todayDeaths+todayRecovered+todayCases)) }}> {commafy(stats?.todayDeaths)} </td>
+            </tr>
+            <tr>
+            <td style={{ '--size': (todayRecovered/(todayDeaths+todayRecovered+todayCases)) }}> {commafy(stats?.todayRecovered)} </td>
+            </tr>
+            <tr>
+            <td style={{ '--size': (todayCases/(todayDeaths+todayRecovered+todayCases)) }}> {commafy(stats?.todayCases)} </td>
+            </tr>
+      </tbody>
+      <ul class="charts-css legend legend-circle">
+  <li> Deaths Today </li>
+  <li> Recoveries Today </li>
+  <li> Cases Today </li>
+</ul>
+</table>
+
+
 </div>
+{/* End of - Worldwide Deaths to Recoveries */}
 
 <div class="column">
 <h3>Worldwide Cases Stats</h3>
@@ -327,12 +368,54 @@ const IndexPage = () => {
     </tr>
   </tbody>
 </table>
+
+{/* Total */}
+<p> {/* Newline */} </p> 
+<table class="charts-css column show-heading">
+<caption> Total Stats Worldwide </caption>
+      <tbody>
+            <tr>
+              <td style={{ '--size': (totalDeaths/(totalDeaths+totalRecovered+totalCases)) }}> {commafy(stats?.deaths)} </td>
+            </tr>
+            <tr>
+            <td style={{ '--size': (totalRecovered/(totalDeaths+totalRecovered+totalCases)) }}> {commafy(stats?.recovered)} </td>
+            </tr>
+            <tr>
+            <td style={{ '--size': (totalCases/(totalDeaths+totalRecovered+totalCases)) }}> {commafy(stats?.cases)} </td>
+            </tr>
+      </tbody>
+      <ul class="charts-css legend legend-circle">
+  <li> Total Deaths</li>
+  <li> Total Recoveries</li>
+  <li> Total Cases</li>
+</ul>
+</table>
+{/* End of - Worldwide Critical cases to Every 10 Active Cases */}
+
+{/* Critical Cases per 10 Deaths */}
+<p> {/* Newline */} </p> 
+<table class="charts-css column multiple stacked show-heading">
+  <caption> Critical Cases per 10 Deaths </caption>
+  <tbody>
+    <tr>
+      <td style={{'--size': '1'}}>
+        <span class="data"> {commafy(parseInt((stats?.deaths)/10))} </span>
+      </td>
+      <td style={{'--size': (criticalCases/(totalDeaths/10))}}>
+        <span class="data">{commafy(stats?.critical)} </span> 
+      </td>
+    </tr>
+  </tbody>
+</table>
+{/* End of - Critical Cases per 10 Deaths */}
 </div>
 </div>
+
 
     </Container>
   </Layout>
   );
+
 };
 
 export default IndexPage;
