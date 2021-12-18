@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import L from "leaflet";
 import { useMap } from "react-leaflet";
@@ -13,14 +13,17 @@ import Map from "components/Map";
 import Snippet from "components/Snippet";
 
 const LOCATION = {
-  lat: 34.0522,
-  lng: -118.2437,
+  lat: 0,
+  lng: 0,
 };
 const CENTER = [LOCATION.lat, LOCATION.lng];
 const DEFAULT_ZOOM = 2;
 
 
+
 const IndexPage = () => {
+  const [visible, setVisible] = useState(true) // true is the initial state
+
   const { data: countries = [] } = useTracker({
     api: 'countries'
   });
@@ -35,15 +38,32 @@ const IndexPage = () => {
   
   const dashboardStats = [
     { primary:   { label: 'Total Cases',   value: commafy(stats?.cases) },
-      secondary: { label: 'Per 1 Million', value: commafy(stats?.casesPerOneMillion) }
+      secondary: { label: 'Total Cases Per 1 Million', value: commafy(stats?.casesPerOneMillion) }
     },
     { primary:   { label: 'Total Deaths',  value: commafy(stats?.deaths) },
-      secondary: { label: 'Per 1 Million', value: commafy(stats?.deathsPerOneMillion) }
+      secondary: { label: 'Total Deaths Per 1 Million', value: commafy(stats?.deathsPerOneMillion) }
     },
     { primary:   { label: 'Total Tests',   value: commafy(stats?.tests) },
-      secondary: { label: 'Per 1 Million', value: commafy(stats?.testsPerOneMillion) }
+      secondary: { label: 'Total Tests Per 1 Million', value: commafy(stats?.testsPerOneMillion) }
     }
   ];
+
+  const dashboardStatsToday = [
+    { primary:   { label: 'Total Cases Today',   value: commafy(stats?.todayCases) },
+    },
+    { primary:   { label: 'Total Deaths Today',  value: commafy(stats?.todayDeaths) },
+    }
+  ];
+
+  const dashboardStatsRecovered = [
+    { primary:   { label: 'Total Recovered',   value: commafy(stats?.recovered) },
+    },
+    { primary:   { label: 'Total Recovered per 1 Million',  value: commafy(stats?.recoveredPerOneMillion) },
+    },
+    { primary:   { label: 'Total Recovered Today',   value: commafy(stats?.todayRecovered) },
+    }
+  ];
+  
 
   async function mapEffect(map) { 
     // if (!hasCountries) { 
@@ -160,6 +180,11 @@ const IndexPage = () => {
 
     <div className="tracker">
       <Map {...mapSettings} />
+
+      <div>
+      <button onClick={() => setVisible(!visible)}>Toggle World and Per Population</button>
+    
+      { visible &&
       <div className="tracker-stats">
         <ul>
           { dashboardStats.map(({ primary = {}, secondary = {} }, i ) => {
@@ -181,14 +206,130 @@ const IndexPage = () => {
           );  
         }) }
       </ul>        
+    </div>
+    }
+    {!visible &&
+    <div className="tracker-stats">
+        <ul>
+          { dashboardStats.map(({ primary = {}, secondary = {} }, i ) => {
+            return (
+              <li key={`Stat-${i}`} className="tracker-stat">
+              { secondary.value && (
+                <p className="tracker-stat-primary">
+                  { secondary.value }
+                  <strong> { secondary.label } </strong>
+                </p>
+              ) }
+              { primary.value && (
+                <p className="tracker-stat-secondary">
+                  { primary.value } 
+                  <strong> { primary.label } </strong>
+                </p>
+              ) }
+            </li>   
+          );  
+        }) }
+      </ul>        
+    </div>   
+    }
+    </div>
+
+  </div> 
+  <div className="tracker">
+      <div className="tracker-stats">
+        <ul>
+          { dashboardStatsToday.map(({ primary = {}}, i ) => {
+            return (
+              <li key={`Stat-${i}`} className="tracker-stat">
+              { primary.value && (
+                <p className="tracker-stat-primary">
+                  { primary.value }
+                  <strong> { primary.label } </strong>
+                </p>
+              ) }
+            </li>   
+          );  
+        }) }
+      </ul>        
+    </div>             
+  </div> 
+  <div className="tracker">
+      <div className="tracker-stats">
+        <ul>
+          { dashboardStatsRecovered.map(({ primary = {}}, i ) => {
+            return (
+              <li key={`Stat-${i}`} className="tracker-stat">
+              { primary.value && (
+                <p className="tracker-stat-primary">
+                  { primary.value }
+                  <strong> { primary.label } </strong>
+                </p>
+              ) }
+            </li>   
+          );  
+        }) }
+      </ul>        
     </div>             
   </div> 
   <div className="tracker-last-updated">
     <p>Last Updated: { stats ? friendlyDate( stats?.updated ) : '-' } </p>
   </div>
 
+
+
+
   <Container type="content" className="text-center home-start"> 
-    <h3>It has  covid stats via markers on our map, and stas shown in a dashboard... lots of fun!</h3>
+
+  <div class="row">
+  <div class="column">
+<h3>Worldwide Recovery Stats</h3>
+  <table class="table" id="dataTable2">
+  <thead>
+    <th>Stats </th>
+    <th>Total Recoveries</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Recoveries Worldwide</td>
+      <td>{commafy(stats?.recovered)}</td>
+    </tr>
+    <tr>
+      <td>Worldwide Recoveries Per One Million</td>
+      <td>{commafy(stats?.recoveredPerOneMillion)}</td>
+    </tr>
+    <tr>
+      <td>Worldwide Recoveries Today</td>
+      <td>{commafy(stats?.todayRecovered)}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="column">
+<h3>Worldwide Cases Stats</h3>
+  <table class="table" id="dataTable2">
+  <thead>
+    <th>Stats </th>
+    <th>Total Cases</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Cases Worldwide</td>
+      <td>{commafy(stats?.cases)}</td>
+    </tr>
+    <tr>
+      <td>Worldwide Cases Per One Million</td>
+      <td>{commafy(stats?.casesPerOneMillion)}</td>
+    </tr>
+    <tr>
+      <td>Worldwide Cases Today</td>
+      <td>{commafy(stats?.todayCases)}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
     </Container>
   </Layout>
   );

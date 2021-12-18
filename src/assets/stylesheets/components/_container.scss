@@ -1,9 +1,27 @@
 .container {
   width: 100%;
   margin: 0 auto;
+  background-color: rgb(32, 33, 37);
+  color: white;
 }
 
 .container-content {
   max-width: 60em;
   padding: 0 1em;
+}
+
+.row {
+  display: flex;
+  margin-left:-5px;
+  margin-right:-5px;
+}
+
+.column {
+  flex: 50%;
+  padding: 5px;
+}
+
+.column table{
+  margin: 0 auto;
+  border: 1px solid white;
 }

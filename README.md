@@ -24,4 +24,6 @@ https://www.freecodecamp.org/news/how-to-add-coronavirus-covid-19-case-statistic
 lsof -i tcp:8000    to find the pid of a process running on port 8000
 kill -9 PID_OF_PROCESS
 
+install charts.css dependencies using yarn add charts.css
 ```
+![alt text](https://cdn.discordapp.com/attachments/458701567366004737/921551394153058365/Website.gif.gif)
