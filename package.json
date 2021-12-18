@@ -1,14 +1,15 @@
 {
-  "name": "gatsby-starter-leaflet",
-  "title": "Gatsby Starter Leaflet",
-  "description": "A Gatsby starter with Leafet!",
+  "name": "Covid_Dashboard",
+  "title": "Covid-19 Dashboard",
+  "description": "Build a dynamic website, showing off a Covid-19 Statistics/Information Dashboard, including Map, Table, & Graph Statistics.",
   "version": "0.3.0",
   "author": {
-    "name": "Colby Fayock",
-    "email": "hello@colbyfayock.com",
-    "url": "https://twitter.com/colbyfayock"
+    "name": "Vanilla",
+    "email": "13rianlucero@csu.fullerton.edu",
+    "url": "https://github.com/13rianlucero/Covid_Dashboard"
   },
   "dependencies": {
+    "charts.css": "^0.9.0",
     "gatsby": "^3.13.0",
     "gatsby-plugin-manifest": "^3.14.0",
     "gatsby-plugin-react-helmet": "^4.14.0",
@@ -85,9 +86,9 @@
   "homepage": "https://gatsby-starter-leaflet.netlify.app/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/colbyfayock/gatsby-starter-leaflet"
+    "url": "https://github.com/13rianlucero/Covid_Dashboard"
   },
   "bugs": {
-    "url": "https://github.com/colbyfayock/gatsby-starter-leaflet/issues"
+    "url": "https://github.com/13rianlucero/Covid_Dashboard/issues"
   }
 }
