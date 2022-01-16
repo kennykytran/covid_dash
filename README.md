@@ -10,7 +10,7 @@ CREATING a GATSBY LEAFLET STARTER
 (4) chrome on localhost:8000    (should see the (gatsby astronaut...)
 
 ######################################
-(5) download from https://github.com/13rianlucero/Covid_Dashboard
+(5) download from https://github.com/ktranfullerton2000/covid_dash/
 (6) manually replace the file by file, or folder by folder, as appropriate
 try to run this again
 (7) yarn develop (it fails, it wants sass)
