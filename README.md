@@ -1,7 +1,5 @@
 # covid_dash
 
-[https://vanilla-covid-dashboard.netlify.app/](https://vanilla-covid-dashboard.netlify.app/)
-
 ```
 CREATING a GATSBY LEAFLET STARTER
 (1) gatsby new directory_name
